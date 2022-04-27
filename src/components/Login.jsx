@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-// useHistory Source: https://v5.reactrouter.com/web/api/Hooks
 
 function Login() {
   const [email, setEmail] = useState('');
