@@ -12,7 +12,7 @@ function Login() {
   function buttonValidate() {
     const MIN_LENGTH = 6;
     const emailCheck = email.toLowerCase().match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
-    //podemos verificar melhor isso aqui
+    // podemos verificar melhor isso aqui
     const passwordCheck = password.length > MIN_LENGTH;
     const bothChecks = emailCheck && passwordCheck;
     return bothChecks;
