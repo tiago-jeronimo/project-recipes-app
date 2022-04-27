@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import MyContext from '../context/Context';
@@ -6,14 +6,16 @@ import MyContext from '../context/Context';
 export default function Foods() {
   const {
     meals,
-    getAllFoods,
+    // getAllFoods,
   } = useContext(MyContext);
 
   const MAX_LENGTH = 12;
 
-  useEffect(() => {
-    getAllFoods();
-  }, []);
+  // getAllFoods();
+
+  // useEffect(() => {
+  //   getAllFoods();
+  // }, []);
 
   function renderLengthValidation(params) {
     if (params !== undefined) {
