@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from './Context';
+import { getFoods } from '../services/mealDBAPI';
+import { getDrinks } from '../services/drinksAPI';
 
 function Provider({ children }) {
-  const [stateA, setStateA] = useState('initialStateA');
-  const contextValue = {
-    stateA,
-    setStateA,
-  };
+  
+  const [search, setSearch] = useState('');
+
+  const contextValue = useMemo(() => ({
+    search,
+    setSearch,
+  }), [search]);
 
   return (
     <MyContext.Provider value={ contextValue }>
