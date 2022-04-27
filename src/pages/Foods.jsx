@@ -13,9 +13,6 @@ export default function Foods() {
 
   useEffect(() => {
     getAllFoods();
-    // https://github.com/facebook/create-react-app/issues/6880
-    // seria bom verificar esse disable que eu fiz aqui, porque no link ta falando que GERALMENTE fazer isso eh um erro... podemos perguntar na mentoria se for o caso depois se pode deixar assim.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function renderLengthValidation(params) {
