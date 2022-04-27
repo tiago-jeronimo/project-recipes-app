@@ -1,31 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from './Context';
 import { getFoods } from '../services/mealDBAPI';
 import { getDrinks } from '../services/drinksAPI';
 
 function Provider({ children }) {
-  const [meals, setMeals] = useState([]);
-  const [drinks, setDrinks] = useState([]);
+  
+  const [search, setSearch] = useState('');
 
-  async function getAllFoods() {
-    const response = await getFoods();
-    setMeals(response);
-  }
-
-  async function getAllDrinks() {
-    const response = await getDrinks();
-    setDrinks(response);
-  }
-
-  const contextValue = {
-    meals,
-    setMeals,
-    getAllFoods,
-    drinks,
-    setDrinks,
-    getAllDrinks,
-  };
+  const contextValue = useMemo(() => ({
+    search,
+    setSearch,
+  }), [search]);
 
   return (
     <MyContext.Provider value={ contextValue }>
