@@ -1,50 +1,29 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import Footer from '../components/Footer';
-import MyContext from '../context/Context';
+import MealCard from '../components/MealCard';
+import { getFoods } from '../services/mealDBAPI';
 
 export default function Foods() {
-  const {
-    meals,
-    // getAllFoods,
-  } = useContext(MyContext);
+  const [meals, setMeals] = useState([]);
+
+  const getMeals = async () => {
+    const result = await getFoods();
+    console.log(result);
+    setMeals(result);
+  };
+
+  useEffect(() => {
+    getMeals();
+  }, []);
 
   const MAX_LENGTH = 12;
 
-  // getAllFoods();
-
-  // useEffect(() => {
-  //   getAllFoods();
-  // }, []);
-
   function renderLengthValidation(params) {
     if (params !== undefined) {
-      return params.map((food, index) => {
-        if (index < MAX_LENGTH) {
-          return (
-            <Link
-              to={ `/foods/${food.idMeal}` }
-              key={ food.idMeal }
-            >
-              <div
-                data-testid={ `${index}-recipe-card` }
-              >
-                <img
-                  src={ food.strMealThumb }
-                  alt={ food.strMeal }
-                  data-testid={ `${index}-card-img` }
-                />
-                <p
-                  data-testid={ `${index}-card-name` }
-                >
-                  { food.strMeal }
-                </p>
-              </div>
-            </Link>
-          );
-        }
-        return null;
-      });
+      return params.map((food, index) => (
+        index < MAX_LENGTH
+          ? <MealCard index={ index } meal={ food } />
+          : null));
     }
     return (<p>Nada encontrado.</p>);
   }
