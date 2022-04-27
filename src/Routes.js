@@ -15,7 +15,7 @@ import ExploreDrinksIngredients from './pages/ExploreDrinksIngredients';
 import ExploreFoodsNationalities from './pages/ExploreFoodsNationalities';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
-import FavoriteRecipes from './pages/Favoriterecipes';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 
 const Routes = () => (
   <Switch>
