@@ -31,8 +31,10 @@ export default function Foods() {
   return (
     <>
       <h1>Meals Page</h1>
-      { renderLengthValidation(meals) }
-      <Footer />
+      <div className="mealpage">
+        { renderLengthValidation(meals) }
+        <Footer />
+      </div>
     </>
   );
 }
