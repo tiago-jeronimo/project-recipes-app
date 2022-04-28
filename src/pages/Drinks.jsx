@@ -28,6 +28,14 @@ export default function Drinks() {
     setDrinks(result);
   };
 
+  const clickCategory = (newCategory) => {
+    if (category !== newCategory) {
+      setCategory(newCategory);
+    } else {
+      getDrinks();
+    }
+  };
+
   useEffect(() => {
     filterByCategory(category);
   }, [category]);
@@ -58,7 +66,7 @@ export default function Drinks() {
             <Category
               key={ strCategory }
               categoryName={ strCategory }
-              setCategory={ setCategory }
+              clickCategory={ clickCategory }
             />)
           : null));
     }
