@@ -1,9 +1,10 @@
 const URL_MEALDB = 'https://www.themealdb.com/api/json/v1/1/list.php?';
-const URL_MEAL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const URL_MEALS = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const URL_MEAL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 
 export const getFoods = async () => {
   try {
-    const response = await fetch(URL_MEAL);
+    const response = await fetch(URL_MEALS);
     const data = await response.json();
     return data.meals;
   } catch (error) {
@@ -28,9 +29,9 @@ export const getNacionalityMeal = async () => {
 };
 
 export const getMealById = async (ID) => {
-  const resultRequest = await fetch(`www.themealdb.com/api/json/v1/1/lookup.php?i=${ID}`);
-  const { results } = await resultRequest.json();
-  return results;
+  const resultRequest = await fetch(`${URL_MEAL}${ID}`);
+  const { meals } = await resultRequest.json();
+  return meals;
 };
 
 export const getMealByCategory = async (categoryName) => {
