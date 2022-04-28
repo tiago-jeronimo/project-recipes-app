@@ -19,7 +19,7 @@ export default function MealCard({ meal, index }) {
 }
 
 MealCard.propTypes = {
-  index: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
   meal: PropTypes.shape({
     idMeal: PropTypes.string,
     strMeal: PropTypes.string,
