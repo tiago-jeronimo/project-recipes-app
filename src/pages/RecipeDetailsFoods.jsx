@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import Video from '../components/Video';
 
 export default function RecipeDetailsFoods() {
   const { id } = useParams();
@@ -35,6 +36,7 @@ export default function RecipeDetailsFoods() {
         src={ strMealThumb }
         alt={ strMeal }
         data-testid="recipe-photo"
+        style={ { width: '100%' } }
       />
       <div>
         <h1 data-testid="recipe-title">{strMeal}</h1>
@@ -53,7 +55,7 @@ export default function RecipeDetailsFoods() {
       ))}
       <p data-testid="instructions">{strInstructions}</p>
       <h2>Video</h2>
-      <video src={ strYoutube } data-testid="video"><track kind="captions" /></video>
+      <Video URL={ strYoutube } />
       <button type="button" data-testid="start-recipe-btn">Start Recipe</button>
     </main>
 
