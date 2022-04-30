@@ -47,8 +47,12 @@ export default function Drinks() {
     }
   };
 
-  const clickCategory = (categoryParam) => {
-    setCategory(categoryParam);
+  const clickCategory = (newCategory) => {
+    if (category !== newCategory) {
+      setCategory(newCategory);
+    } else {
+      getDrinks();
+    }
   };
 
   useEffect(() => {

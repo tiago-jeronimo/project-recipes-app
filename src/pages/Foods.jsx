@@ -33,8 +33,12 @@ export default function Foods() {
     setMeals(result);
   };
 
-  const clickCategory = (categoryParam) => {
-    setCategory(categoryParam);
+  const clickCategory = (newCategory) => {
+    if (category !== newCategory) {
+      setCategory(newCategory);
+    } else {
+      getMeals();
+    }
   };
 
   const searchBy = async () => {
