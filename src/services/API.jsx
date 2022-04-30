@@ -17,11 +17,9 @@ export const endpointsParam = {
 };
 
 const API = async (type, arg, search) => {
-  console.log('API');
   console.log(endpointsParam[type][arg](search));
   const request = await fetch(endpointsParam[type][arg](search));
   const data = await request.json();
-  console.log(data[type.toLowerCase()]);
   return data[type.toLowerCase()];
 };
 
