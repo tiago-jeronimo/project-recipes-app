@@ -3,11 +3,27 @@ import { useParams } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Video from '../components/Video';
+import { getDrinksAPI } from '../services/drinksAPI';
+import RecommendationCard from '../components/RecommendationCard';
+import s from '../styles/RecipeDetails.module.css';
 
 export default function RecipeDetailsFoods() {
   const { id } = useParams();
   const [meal, setMeal] = useState({});
+  const [drinks, setDrinks] = useState([]);
+
   const { strMealThumb, strMeal, strCategory, strInstructions, strYoutube } = meal;
+
+  useEffect(() => {
+    const START = 0;
+    const END = 6;
+
+    const getDrinks = async () => {
+      const recommended = await getDrinksAPI();
+      setDrinks(recommended.slice(START, END));
+    };
+    getDrinks();
+  }, []);
 
   useEffect(() => {
     const getMealBy = async (ID) => {
@@ -31,17 +47,18 @@ export default function RecipeDetailsFoods() {
   }, []);
 
   return (
-    <main>
+    <main className={ s.main }>
       <img
         src={ strMealThumb }
         alt={ strMeal }
         data-testid="recipe-photo"
-        style={ { width: '100%' } }
       />
-      <div>
+      <div className={ s.wrapper }>
         <h1 data-testid="recipe-title">{strMeal}</h1>
-        <img src={ shareIcon } alt="Share Button" data-testid="share-btn" />
-        <img src={ whiteHeartIcon } alt="Favorite Button" data-testid="favorite-btn" />
+        <div>
+          <img src={ shareIcon } alt="Share Button" data-testid="share-btn" />
+          <img src={ whiteHeartIcon } alt="Favorite Button" data-testid="favorite-btn" />
+        </div>
       </div>
       <h3 data-testid="recipe-category">{strCategory}</h3>
       <h2>Ingredients</h2>
@@ -53,10 +70,30 @@ export default function RecipeDetailsFoods() {
           {`- ${ing} - ${getMeasure()[i]} `}
         </p>
       ))}
+      <h2>Instructions</h2>
       <p data-testid="instructions">{strInstructions}</p>
       <h2>Video</h2>
       <Video URL={ strYoutube } />
-      <button type="button" data-testid="start-recipe-btn">Start Recipe</button>
+      <h2>Recommended</h2>
+      <div className={ s.container }>
+        {drinks.map(({ idDrink, strDrink, strDrinkThumb, strAlcoholic }, index) => (
+          <RecommendationCard
+            key={ idDrink }
+            meal
+            strDrink={ strDrink }
+            strDrinkThumb={ strDrinkThumb }
+            strAlcoholic={ strAlcoholic }
+            index={ index }
+          />
+        ))}
+      </div>
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        Start Recipe
+
+      </button>
     </main>
 
   );
