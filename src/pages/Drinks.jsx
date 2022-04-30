@@ -47,6 +47,10 @@ export default function Drinks() {
     }
   };
 
+  const clickCategory = (categoryParam) => {
+    setCategory(categoryParam);
+  };
+
   useEffect(() => {
     searchBy();
   }, [search.search]);

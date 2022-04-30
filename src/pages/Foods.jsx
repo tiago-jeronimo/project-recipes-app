@@ -33,6 +33,10 @@ export default function Foods() {
     setMeals(result);
   };
 
+  const clickCategory = (categoryParam) => {
+    setCategory(categoryParam);
+  };
+
   const searchBy = async () => {
     if (search.search !== '') {
       const result = await API('MEALS', search.type, search.search);
