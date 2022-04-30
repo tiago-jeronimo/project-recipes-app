@@ -26,9 +26,10 @@ export default function Foods() {
     setCategories(finalResult);
   };
 
-  const filterByCategory = async (categoryName) => {
-    const result = categoryName !== 'All'
-      ? await getMealByCategory(categoryName) : await getFoods();
+  const filterByCategory = async (cat) => {
+    const result = cat !== 'All'
+      ? await getMealByCategory(cat)
+      : await getFoods();
     setMeals(result);
   };
 
@@ -80,7 +81,7 @@ export default function Foods() {
             <Category
               key={ strCategory }
               categoryName={ strCategory }
-              setCategory={ setCategory }
+              clickCategory={ clickCategory }
             />)
           : null));
     }

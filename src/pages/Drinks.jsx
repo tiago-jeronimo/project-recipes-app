@@ -81,7 +81,7 @@ export default function Drinks() {
             <Category
               key={ strCategory }
               categoryName={ strCategory }
-              setCategory={ setCategory }
+              clickCategory={ clickCategory }
             />)
           : null));
     }

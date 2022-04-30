@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 export default function DrinkCard({ drink, index }) {
   return (
     <Link
-      to={ `/drinks/:${drink.idDrink}` }
+      to={ `/drinks/${drink.idDrink}` }
       data-testid={ `${index}-recipe-card` }
     >
       <img
