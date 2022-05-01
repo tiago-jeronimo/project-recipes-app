@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import MealCard from '../components/MealCard';
 import Category from '../components/Category';
 import { getFoods, getCategoriesMeal, getMealByCategory } from '../services/mealDBAPI';
 import Header from '../components/Header';
+import MyContext from '../context/Context';
+import API from '../services/API';
 
 export default function Foods() {
   const [meals, setMeals] = useState([]);
+  const { search } = useContext(MyContext);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState('All');
+  const history = useHistory();
 
   const getMeals = async () => {
     const result = await getFoods();
@@ -35,6 +40,24 @@ export default function Foods() {
       getMeals();
     }
   };
+
+  const searchBy = async () => {
+    if (search.search !== '') {
+      const result = await API('MEALS', search.type, search.search);
+      if (!result) {
+        global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      } else if (result.length === 1) {
+        setMeals(result);
+        history.push(`/foods/${result[0].idMeal}`);
+      } else {
+        setMeals(result);
+      }
+    }
+  };
+
+  useEffect(() => {
+    searchBy();
+  }, [search.search]);
 
   useEffect(() => {
     filterByCategory(category);

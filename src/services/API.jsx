@@ -1,5 +1,5 @@
 export const endpointsParam = {
-  MEAL: {
+  MEALS: {
     all: 'https://www.themealdb.com/api/json/v1/1/list.php?',
     byIngredient: (ingredient) => `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`,
     byName: (name) => `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`,
@@ -9,7 +9,7 @@ export const endpointsParam = {
     byCategory: (category) => `www.themealdb.com/api/json/v1/1/filter.php?c=${category}`,
     byNation: (nation) => `www.themealdb.com/api/json/v1/1/filter.php?a=${nation}`,
   },
-  DRINK: {
+  DRINKS: {
     byIngredient: (ingredient) => `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`,
     byName: (name) => `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`,
     byLetter: (letter) => `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`,
@@ -17,9 +17,10 @@ export const endpointsParam = {
 };
 
 const API = async (type, arg, search) => {
+  console.log(endpointsParam[type][arg](search));
   const request = await fetch(endpointsParam[type][arg](search));
   const data = await request.json();
-  return data;
+  return data[type.toLowerCase()];
 };
 
 export default API;

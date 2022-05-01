@@ -1,7 +1,13 @@
 import React from 'react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 export default function Explore() {
   return (
-    <h1>Explore Page</h1>
+    <>
+      <Header title="Explore" visibleSearch={ false } />
+      <h1>Explore Page</h1>
+      <Footer />
+    </>
   );
 }
