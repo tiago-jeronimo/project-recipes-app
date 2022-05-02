@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Video from '../components/Video';
-import { getDrinksAPI } from '../services/drinksAPI';
 import RecommendationCard from '../components/RecommendationCard';
 import s from '../styles/RecipeDetails.module.css';
+import API from '../services/API';
 
 export default function RecipeDetailsFoods() {
   const { id } = useParams();
@@ -15,25 +15,21 @@ export default function RecipeDetailsFoods() {
   const { strMealThumb, strMeal, strCategory, strInstructions, strYoutube } = meal;
 
   useEffect(() => {
-    const START = 0;
-    const END = 6;
+    const NUM = { START: 0, END: 6 };
 
     const getDrinks = async () => {
-      const recommended = await getDrinksAPI();
-      setDrinks(recommended.slice(START, END));
+      const data = await API('DRINKS', 'all');
+      setDrinks(data.slice(NUM.START, NUM.END));
     };
     getDrinks();
   }, []);
 
   useEffect(() => {
-    const getMealBy = async (ID) => {
-      const URL_MEAL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
-
-      const resultRequest = await fetch(`${URL_MEAL}${ID}`);
-      const { meals } = await resultRequest.json();
-      setMeal(meals[0]);
+    const getMeal = async () => {
+      const data = await API('MEALS', 'byId', id);
+      setMeal(data[0]);
     };
-    getMealBy(id);
+    getMeal();
   }, [id]);
 
   const getIngredients = () => Object.entries(meal).reduce((acc, cur) => {

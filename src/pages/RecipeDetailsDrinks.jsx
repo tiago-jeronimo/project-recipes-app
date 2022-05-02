@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import RecommendationCard from '../components/RecommendationCard';
-import { getFoods } from '../services/mealDBAPI';
 import s from '../styles/RecipeDetails.module.css';
+import API from '../services/API';
 
 export default function RecipeDetailsDrinks() {
   const { id } = useParams();
@@ -14,25 +14,21 @@ export default function RecipeDetailsDrinks() {
   const { strDrinkThumb, strDrink, strAlcoholic, strInstructions } = drink;
 
   useEffect(() => {
-    const START = 0;
-    const END = 6;
+    const NUM = { START: 0, END: 6 };
 
     const getMeals = async () => {
-      const recommended = await getFoods();
-      setMeals(recommended.slice(START, END));
+      const data = await API('MEALS', 'all');
+      setMeals(data.slice(NUM.START, NUM.END));
     };
     getMeals();
   }, []);
 
   useEffect(() => {
-    const getDrinkBy = async (ID) => {
-      const URL_MEAL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
-
-      const resultRequest = await fetch(`${URL_MEAL}${ID}`);
-      const { drinks } = await resultRequest.json();
-      setDrink(drinks[0]);
+    const getDrink = async () => {
+      const data = await API('DRINKS', 'byId', id);
+      setDrink(data[0]);
     };
-    getDrinkBy(id);
+    getDrink();
   }, [id]);
 
   const getIngredients = () => Object.entries(drink).reduce((acc, cur) => {
