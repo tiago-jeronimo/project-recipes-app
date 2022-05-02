@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 export default function MealCard({ meal, index }) {
   return (
     <Link
-      to={ `/foods/:${meal.idMeal}` }
+      to={ `/foods/${meal.idMeal}` }
       data-testid={ `${index}-recipe-card` }
     >
       <img
@@ -19,7 +19,7 @@ export default function MealCard({ meal, index }) {
 }
 
 MealCard.propTypes = {
-  index: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
   meal: PropTypes.shape({
     idMeal: PropTypes.string,
     strMeal: PropTypes.string,

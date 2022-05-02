@@ -1,62 +1,106 @@
-import React, { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import MyContext from '../context/Context';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
+import Category from '../components/Category';
+import { getDrinksAPI, getCategoriesDrinks,
+  getDrinkByCategory } from '../services/drinksAPI';
+import Header from '../components/Header';
+import DrinkCard from '../components/DrinkCard';
+import MyContext from '../context/Context';
+import API from '../services/API';
 
 export default function Drinks() {
-  const {
-    drinks,
-    getAllDrinks,
-  } = useContext(MyContext);
+  const { search } = useContext(MyContext);
+  const [drinks, setDrinks] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState('All');
+  const history = useHistory();
 
-  const MAX_LENGTH = 12;
+  const getDrinks = async () => {
+    const result = await getDrinksAPI();
+    setDrinks(result);
+  };
+
+  const getCategories = async () => {
+    const result = await getCategoriesDrinks();
+    const finalResult = [{ strCategory: 'All' }, ...result];
+    setCategories(finalResult);
+  };
+
+  const filterByCategory = async (categoryName) => {
+    const result = categoryName !== 'All'
+      ? await getDrinkByCategory(categoryName) : await getDrinksAPI();
+    setDrinks(result);
+  };
+
+  const searchBy = async () => {
+    if (search.search !== '') {
+      const result = await API('DRINKS', search.type, search.search);
+      if (!result) {
+        global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      } else if (result.length === 1) {
+        setDrinks(result);
+        history.push(`/drinks/${result[0].idDrink}`);
+      } else {
+        setDrinks(result);
+      }
+    }
+  };
+
+  const clickCategory = (newCategory) => {
+    if (category !== newCategory) {
+      setCategory(newCategory);
+    } else {
+      getDrinks();
+    }
+  };
 
   useEffect(() => {
-    getAllDrinks();
-    console.log(drinks);
-    // https://github.com/facebook/create-react-app/issues/6880
-    // seria bom verificar esse disable que eu fiz aqui, porque no link ta falando que GERALMENTE fazer isso eh um erro... podemos perguntar na mentoria se for o caso depois se pode deixar assim.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    searchBy();
+  }, [search.search]);
+
+  useEffect(() => {
+    filterByCategory(category);
+  }, [category]);
+
+  useEffect(() => {
+    getDrinks();
+    getCategories();
   }, []);
 
-  function renderLengthValidation(params) {
-    console.log(params);
-    if (params !== undefined) {
-      return params.map((drink, index) => {
-        if (index < MAX_LENGTH) {
-          return (
-            <Link
-              to={ `/drinks/${drink.idDrink}` }
-              key={ drink.idDrink }
-            >
-              <div
-                data-testid={ `${index}-recipe-card` }
-              >
-                <img
-                  src={ drink.strDrinkThumb }
-                  alt={ drink.strDrink }
-                  data-testid={ `${index}-card-img` }
-                />
-                <p
-                  data-testid={ `${index}-card-name` }
-                >
-                  { drink.strDrink }
-                </p>
-              </div>
-            </Link>
-          );
-        }
-        return null;
-      });
-    }
-  }
+  const MAX_LENGTH_DRINKS = 12;
+  const MAX_LENGTH_CATEGORIES = 6;
 
-  if (drinks.length === 0) return <span>Loading...</span>;
+  const renderLengthValidationDrinks = (params) => {
+    if (params !== undefined) {
+      return params.map((drink, index) => (
+        index < MAX_LENGTH_DRINKS
+          ? <DrinkCard key={ index } index={ index } drink={ drink } />
+          : null));
+    }
+    return (<p>Nada encontrado.</p>);
+  };
+
+  const renderLengthValidationCategories = (params) => {
+    if (params !== undefined) {
+      return params.map(({ strCategory }, index) => (
+        index < MAX_LENGTH_CATEGORIES
+          ? (
+            <Category
+              key={ strCategory }
+              categoryName={ strCategory }
+              clickCategory={ clickCategory }
+            />)
+          : null));
+    }
+    return (<p>Nada encontrado.</p>);
+  };
 
   return (
     <div>
-      <h1>Drinks Page</h1>
-      { renderLengthValidation(drinks) }
+      <Header title="Drinks" visibleSearch />
+      { renderLengthValidationCategories(categories) }
+      { renderLengthValidationDrinks(drinks) }
       <Footer />
     </div>
   );
