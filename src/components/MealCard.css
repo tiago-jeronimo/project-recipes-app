@@ -1,23 +1,61 @@
-h1 {
-  padding: 20px;
-  text-align: center;
+@media ( min-width : 360px ) {
+
+  .card:nth-of-type( 1 ) {
+    display: flex;
+  }
+
+  h1 {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .mealpage {
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 10px;
+    text-align: center;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  .imagefood {
+    width: 150px;
+  }
 }
 
-.mealpage {
-  background-color: white;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  padding: 10px;
-  text-align: center;
-}
+@media ( min-width : 361px ) {
 
-a {
-  color: black;
-  text-decoration: none;
-}
+  .card:nth-of-type( 2 ) {
+    display: flex;
+  }
 
-.imagefood {
-  width: 150px;
+  h1 {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .mealpage {
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  .imagefood {
+    width: 250px;
+  }
+
 }
