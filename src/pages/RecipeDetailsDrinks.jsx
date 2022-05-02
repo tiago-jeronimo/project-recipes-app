@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import RecommendationCard from '../components/RecommendationCard';
 import s from '../styles/RecipeDetails.module.css';
 import API from '../services/API';
+import RecipeBtn from '../components/RecipeBtn';
+import ShareBtn from '../components/ShareBtn';
 
 export default function RecipeDetailsDrinks() {
   const { id } = useParams();
@@ -51,7 +52,7 @@ export default function RecipeDetailsDrinks() {
       <div className={ s.wrapper }>
         <h1 data-testid="recipe-title">{strDrink}</h1>
         <div>
-          <img src={ shareIcon } alt="Share Button" data-testid="share-btn" />
+          <ShareBtn />
           <img src={ whiteHeartIcon } alt="Favorite Button" data-testid="favorite-btn" />
         </div>
       </div>
@@ -80,7 +81,7 @@ export default function RecipeDetailsDrinks() {
           />
         ))}
       </div>
-      <button type="button" data-testid="start-recipe-btn">Start Recipe</button>
+      <RecipeBtn ID={ id } type="cocktails" />
     </main>
 
   );

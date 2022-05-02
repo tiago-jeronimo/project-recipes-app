@@ -14,7 +14,7 @@ export default function RecommendationCard(props) {
           className={ s.items }
           data-testid={ `${index}-recomendation-card` }
         >
-          <img src={ strDrinkThumb } alt={ strDrink } />
+          <input src={ strDrinkThumb } alt={ strDrink } />
           <h3>{strAlcoholic}</h3>
           <h1 data-testid={ `${index}-recomendation-title` }>{strDrink}</h1>
         </div>
@@ -25,7 +25,7 @@ export default function RecommendationCard(props) {
           className={ s.items }
           data-testid={ `${index}-recomendation-card` }
         >
-          <img src={ strMealThumb } alt={ strMeal } />
+          <input src={ strMealThumb } alt={ strMeal } />
           <h3>{strCategory}</h3>
           <h1 data-testid={ `${index}-recomendation-title` }>{strMeal}</h1>
         </div>

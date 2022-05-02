@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Video from '../components/Video';
 import RecommendationCard from '../components/RecommendationCard';
-import s from '../styles/RecipeDetails.module.css';
+import RecipeBtn from '../components/RecipeBtn';
 import API from '../services/API';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import s from '../styles/RecipeDetails.module.css';
+import ShareBtn from '../components/ShareBtn';
 
 export default function RecipeDetailsFoods() {
   const { id } = useParams();
@@ -44,19 +45,23 @@ export default function RecipeDetailsFoods() {
 
   return (
     <main className={ s.main }>
+
       <img
         src={ strMealThumb }
         alt={ strMeal }
         data-testid="recipe-photo"
       />
+
       <div className={ s.wrapper }>
         <h1 data-testid="recipe-title">{strMeal}</h1>
         <div>
-          <img src={ shareIcon } alt="Share Button" data-testid="share-btn" />
+          <ShareBtn />
           <img src={ whiteHeartIcon } alt="Favorite Button" data-testid="favorite-btn" />
         </div>
       </div>
+
       <h3 data-testid="recipe-category">{strCategory}</h3>
+
       <h2>Ingredients</h2>
       {getIngredients().map((ing, i) => (
         <p
@@ -66,10 +71,13 @@ export default function RecipeDetailsFoods() {
           {`- ${ing} - ${getMeasure()[i]} `}
         </p>
       ))}
+
       <h2>Instructions</h2>
       <p data-testid="instructions">{strInstructions}</p>
+
       <h2>Video</h2>
       <Video URL={ strYoutube } />
+
       <h2>Recommended</h2>
       <div className={ s.container }>
         {drinks.map(({ idDrink, strDrink, strDrinkThumb, strAlcoholic }, index) => (
@@ -83,13 +91,7 @@ export default function RecipeDetailsFoods() {
           />
         ))}
       </div>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Start Recipe
-
-      </button>
+      <RecipeBtn ID={ id } type="meals" />
     </main>
 
   );
