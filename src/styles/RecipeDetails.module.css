@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.main {
+  margin-bottom: 80px;
+}
+
+.main img {
+  width: 100%;
+}
+
+.main h2 {
+  margin: 8px;
+}
+
+.wrapper {
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 8px;
+}
+
+.wrapper img {
+  margin: 0 4px;
+  width: fit-content;
+}
+
+.container {
+  display: grid;
+  gap: 3%;
+  grid-auto-columns: 48%;
+  grid-auto-flow: column;
+  margin: 0 2%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: inline mandatory;
+}
+
+.items {
+  border: 1px solid black;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  scroll-snap-align: start;
+}
+
+.items img {
+  border-radius: 8px 8px 0 0;
+  width: 100%;
+}
+
+.main button {
+  bottom: 0;
+  font-size: 1.5rem;
+  position: fixed;
+  width: 100%;
+}

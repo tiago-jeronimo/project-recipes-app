@@ -6,14 +6,16 @@ export default function DrinkCard({ drink, index }) {
   return (
     <Link
       to={ `/drinks/${drink.idDrink}` }
-      data-testid={ `${index}-recipe-card` }
     >
-      <img
-        data-testid={ `${index}-card-img` }
-        src={ drink.strDrinkThumb }
-        alt={ `${drink.strDrink} foto` }
-      />
-      <p data-testid={ `${index}-card-name` }>{drink.strDrink}</p>
+      <div data-testid={ `${index}-recipe-card` }>
+        <img
+          data-testid={ `${index}-card-img` }
+          src={ drink.strDrinkThumb }
+          alt={ `${drink.strDrink} foto` }
+        />
+        <p data-testid={ `${index}-card-name` }>{drink.strDrink}</p>
+      </div>
+
     </Link>
   );
 }

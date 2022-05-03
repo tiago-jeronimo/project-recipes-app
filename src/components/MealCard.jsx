@@ -6,15 +6,17 @@ export default function MealCard({ meal, index }) {
   return (
     <Link
       to={ `/foods/${meal.idMeal}` }
-      data-testid={ `${index}-recipe-card` }
     >
-      <img
-        data-testid={ `${index}-card-img` }
-        src={ meal.strMealThumb }
-        alt={ `${meal.strMeal} foto` }
-      />
-      <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
+      <div data-testid={ `${index}-recipe-card` }>
+        <img
+          data-testid={ `${index}-card-img` }
+          src={ meal.strMealThumb }
+          alt={ `${meal.strMeal} foto` }
+        />
+        <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
+      </div>
     </Link>
+
   );
 }
 

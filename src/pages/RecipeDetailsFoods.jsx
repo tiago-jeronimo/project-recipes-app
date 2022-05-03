@@ -1,22 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import shareIcon from '../images/shareIcon.svg';
+import Video from '../components/Video';
+import RecommendationCard from '../components/RecommendationCard';
+import RecipeBtn from '../components/RecipeBtn';
+import API from '../services/API';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import s from '../styles/RecipeDetails.module.css';
+import ShareBtn from '../components/ShareBtn';
 
 export default function RecipeDetailsFoods() {
   const { id } = useParams();
   const [meal, setMeal] = useState({});
+  const [drinks, setDrinks] = useState([]);
+
   const { strMealThumb, strMeal, strCategory, strInstructions, strYoutube } = meal;
 
   useEffect(() => {
-    const getMealBy = async (ID) => {
-      const URL_MEAL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+    const NUM = { START: 0, END: 6 };
 
-      const resultRequest = await fetch(`${URL_MEAL}${ID}`);
-      const { meals } = await resultRequest.json();
-      setMeal(meals[0]);
+    const getDrinks = async () => {
+      const data = await API('DRINKS', 'all');
+      setDrinks(data.slice(NUM.START, NUM.END));
     };
-    getMealBy(id);
+    getDrinks();
+  }, []);
+
+  useEffect(() => {
+    const getMeal = async () => {
+      const data = await API('MEALS', 'byId', id);
+      setMeal(data[0]);
+    };
+    getMeal();
   }, [id]);
 
   const getIngredients = () => Object.entries(meal).reduce((acc, cur) => {
@@ -30,18 +44,24 @@ export default function RecipeDetailsFoods() {
   }, []);
 
   return (
-    <main>
+    <main className={ s.main }>
+
       <img
         src={ strMealThumb }
         alt={ strMeal }
         data-testid="recipe-photo"
       />
-      <div>
+
+      <div className={ s.wrapper }>
         <h1 data-testid="recipe-title">{strMeal}</h1>
-        <img src={ shareIcon } alt="Share Button" data-testid="share-btn" />
-        <img src={ whiteHeartIcon } alt="Favorite Button" data-testid="favorite-btn" />
+        <div>
+          <ShareBtn />
+          <img src={ whiteHeartIcon } alt="Favorite Button" data-testid="favorite-btn" />
+        </div>
       </div>
+
       <h3 data-testid="recipe-category">{strCategory}</h3>
+
       <h2>Ingredients</h2>
       {getIngredients().map((ing, i) => (
         <p
@@ -51,10 +71,27 @@ export default function RecipeDetailsFoods() {
           {`- ${ing} - ${getMeasure()[i]} `}
         </p>
       ))}
+
+      <h2>Instructions</h2>
       <p data-testid="instructions">{strInstructions}</p>
+
       <h2>Video</h2>
-      <video src={ strYoutube } data-testid="video"><track kind="captions" /></video>
-      <button type="button" data-testid="start-recipe-btn">Start Recipe</button>
+      <Video URL={ strYoutube } />
+
+      <h2>Recommended</h2>
+      <div className={ s.container }>
+        {drinks.map(({ idDrink, strDrink, strDrinkThumb, strAlcoholic }, index) => (
+          <RecommendationCard
+            key={ idDrink }
+            meal
+            strDrink={ strDrink }
+            strDrinkThumb={ strDrinkThumb }
+            strAlcoholic={ strAlcoholic }
+            index={ index }
+          />
+        ))}
+      </div>
+      <RecipeBtn ID={ id } type="meals" />
     </main>
 
   );
