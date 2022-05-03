@@ -98,10 +98,9 @@ export default function Foods() {
 
   return (
     <>
-      <h1>Meals Page</h1>
-      <div className="mealpage">
-        { renderLengthValidation(meals) }
-      </div>
+      <Header title="Foods" visibleSearch />
+      { renderLengthValidationCategories(categories) }
+      { renderLengthValidationMeals(meals) }
       <Footer />
     </>
   );
