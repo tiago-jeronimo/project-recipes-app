@@ -1,13 +1,10 @@
-const URL_MEALDB = 'https://www.themealdb.com/api/json/v1/1/list.php?s=';
-const URL_IMG_INGREDIENT = 'https://www.themealdb.com/images/ingredients/';
-
-const URL_MEAL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-
-const URL_MEAL_BY_ID = 'www.themealdb.com/api/json/v1/1/lookup.php?i=';
+const URL_MEALDB = 'https://www.themealdb.com/api/json/v1/1/list.php?';
+const URL_MEALS = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const URL_MEAL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 
 export const getFoods = async () => {
   try {
-    const response = await fetch(URL_MEAL);
+    const response = await fetch(URL_MEALS);
     const data = await response.json();
     return data.meals;
   } catch (error) {
@@ -15,10 +12,14 @@ export const getFoods = async () => {
   }
 };
 
-export const getCategorysMeal = async () => {
-  const resultRequest = await fetch(`${URL_MEALDB}c=list`);
-  const { results } = await resultRequest.json();
-  return results;
+export const getCategoriesMeal = async () => {
+  try {
+    const resultRequest = await fetch(`${URL_MEALDB}c=list`);
+    const { meals } = await resultRequest.json();
+    return meals;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const getNacionalityMeal = async () => {
@@ -27,21 +28,24 @@ export const getNacionalityMeal = async () => {
   return results;
 };
 
-export const getMealById = async (mealID) => {
-  const resultRequest = await fetch(`${URL_MEAL_BY_ID}${mealID}`);
-  const { results } = await resultRequest.json();
-  return results;
+export const getMealById = async (ID) => {
+  const resultRequest = await fetch(`${URL_MEAL}${ID}`);
+  const { meals } = await resultRequest.json();
+  return meals;
+};
+
+export const getMealByCategory = async (categoryName) => {
+  try {
+    const resultRequest = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryName}`);
+    const { meals } = await resultRequest.json();
+    return meals;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const getIngredientsMeal = async () => {
   const resultRequest = await fetch(`${URL_MEALDB}i=list`);
-  const { results } = await resultRequest.json();
-  return results;
-};
-
-export const getImageIngredient = async (ingredientName) => {
-  // https://www.themealdb.com/images/ingredients/{nome-do-ingrediente}-Small.png
-  const resultRequest = await fetch(`${URL_IMG_INGREDIENT}${ingredientName}-Small.png`);
   const { results } = await resultRequest.json();
   return results;
 };

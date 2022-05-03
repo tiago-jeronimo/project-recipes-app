@@ -6,22 +6,24 @@ import './MealCard.css';
 export default function MealCard({ meal, index }) {
   return (
     <Link
-      to={ `/foods/:${meal.idMeal}` }
-      data-testid={ `${index}-recipe-card` }
+      to={ `/foods/${meal.idMeal}` }
     >
-      <img
-        data-testid={ `${index}-card-img` }
-        src={ meal.strMealThumb }
-        alt={ `${meal.strMeal} foto` }
-        className="imagefood"
-      />
-      <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
+      <div data-testid={ `${index}-recipe-card` }>
+        <img
+          data-testid={ `${index}-card-img` }
+          src={ meal.strMealThumb }
+          alt={ `${meal.strMeal} foto` }
+          className="imagefood"
+        />
+        <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
+      </div>
     </Link>
+
   );
 }
 
 MealCard.propTypes = {
-  index: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
   meal: PropTypes.shape({
     idMeal: PropTypes.string,
     strMeal: PropTypes.string,
