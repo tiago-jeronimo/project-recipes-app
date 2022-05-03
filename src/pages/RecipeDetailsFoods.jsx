@@ -4,9 +4,9 @@ import Video from '../components/Video';
 import RecommendationCard from '../components/RecommendationCard';
 import RecipeBtn from '../components/RecipeBtn';
 import API from '../services/API';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import s from '../styles/RecipeDetails.module.css';
 import ShareBtn from '../components/ShareBtn';
+import FavoriteBtn from '../components/FavoriteBtn';
 
 export default function RecipeDetailsFoods() {
   const { id } = useParams();
@@ -56,7 +56,7 @@ export default function RecipeDetailsFoods() {
         <h1 data-testid="recipe-title">{strMeal}</h1>
         <div>
           <ShareBtn />
-          <img src={ whiteHeartIcon } alt="Favorite Button" data-testid="favorite-btn" />
+          <FavoriteBtn meal={ meal } ID={ id } />
         </div>
       </div>
 

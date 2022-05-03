@@ -35,6 +35,6 @@ export default function RecipeBtn({ ID, type }) {
 }
 
 RecipeBtn.propTypes = {
-  id: PropTypes.string,
+  ID: PropTypes.string,
   type: PropTypes.string,
 }.isRequired;
