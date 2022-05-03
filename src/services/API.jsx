@@ -1,6 +1,6 @@
 export const endpointsParam = {
   MEALS: {
-    all: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
+    search: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
     byIngredient: (ingredient) => `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`,
     byName: (name) => `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`,
     byLetter: (letter) => `https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`,
@@ -10,7 +10,7 @@ export const endpointsParam = {
     byNation: (nation) => `www.themealdb.com/api/json/v1/1/filter.php?a=${nation}`,
   },
   DRINKS: {
-    all: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
+    search: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
     byIngredient: (ingredient) => `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`,
     byName: (name) => `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`,
     byLetter: (letter) => `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`,

@@ -18,7 +18,7 @@ export default function RecipeDetailsDrinks() {
     const NUM = { START: 0, END: 6 };
 
     const getMeals = async () => {
-      const data = await API('MEALS', 'all');
+      const data = await API('MEALS', 'search');
       setMeals(data.slice(NUM.START, NUM.END));
     };
     getMeals();
