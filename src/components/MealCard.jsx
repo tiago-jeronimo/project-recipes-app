@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import './MealCard.css';
 
 export default function MealCard({ meal, index }) {
   return (
@@ -13,7 +12,6 @@ export default function MealCard({ meal, index }) {
           data-testid={ `${index}-card-img` }
           src={ meal.strMealThumb }
           alt={ `${meal.strMeal} foto` }
-          className="imagefood"
         />
         <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
       </div>
