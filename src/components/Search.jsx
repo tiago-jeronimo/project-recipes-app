@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
-import MyContext from '../context/Context';
+import React, { useState } from 'react';
+import useSearchBy from '../hooks/useSearchBy';
 
 export default function Search() {
   const [search, setSearchValue] = useState('');
   const [type, setType] = useState('byName');
-  const { setSearch } = useContext(MyContext);
+  const { setSearch } = useSearchBy();
 
   const handleClick = (e) => {
     e.preventDefault();

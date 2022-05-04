@@ -16,6 +16,7 @@ import ExploreFoodsNationalities from './pages/ExploreFoodsNationalities';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import NotFound from './pages/NotFound';
 
 const Routes = () => (
   <Switch>
@@ -36,8 +37,18 @@ const Routes = () => (
     />
     <Route
       exact
+      path="/explore/foods/ingredients/:argParams"
+      component={ Foods }
+    />
+    <Route
+      exact
       path="/explore/drinks/ingredients"
       component={ ExploreDrinksIngredients }
+    />
+    <Route
+      exact
+      path="/explore/drinks/ingredients/:argParams"
+      component={ Drinks }
     />
     <Route
       exact
@@ -47,6 +58,7 @@ const Routes = () => (
     <Route exact path="/profile" component={ Profile } />
     <Route exact path="/done-recipes" component={ DoneRecipes } />
     <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
+    <Route path="*" component={ NotFound } />
   </Switch>
 );
 
