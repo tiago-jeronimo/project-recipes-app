@@ -16,9 +16,10 @@ export const getInProgressRecipes = () => JSON.parse(
 export const saveInProgressRecipes = (type, id, ingredients) => {
   const inProgressRecipes = {
     ...getInProgressRecipes(),
-    [getInProgressRecipes()[type]]: {
+    [type]: {
       ...getInProgressRecipes()[type],
-      [id]: ingredients },
+      [id]: ingredients,
+    },
   };
 
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(inProgressRecipes));
