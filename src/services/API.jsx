@@ -1,6 +1,5 @@
 export const endpointsParam = {
   MEALS: {
-    search: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
     all: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
     allIngredients: 'https://www.themealdb.com/api/json/v1/1/list.php?i=list',
     random: 'https://www.themealdb.com/api/json/v1/1/random.php',
@@ -14,7 +13,6 @@ export const endpointsParam = {
     byNationality: (nation) => `https://www.themealdb.com/api/json/v1/1/filter.php?a=${nation}`,
   },
   DRINKS: {
-    search: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
     all: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
     allIngredients: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list',
     random: 'https://www.thecocktaildb.com/api/json/v1/1/random.php',

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
-export default function ShareBtn() {
+export default function ShareBtn({ inProgress }) {
   const [showMSG, setShowMSG] = useState(false);
 
   useEffect(() => {
@@ -16,7 +17,10 @@ export default function ShareBtn() {
 
   const handleShare = () => {
     const url = window.location.href;
-    copy(url);
+    const reg = /.*(?=\/in)/;
+
+    copy((inProgress) ? url.match(reg)[0] : copy(url));
+
     setShowMSG(true);
   };
 
@@ -35,3 +39,7 @@ export default function ShareBtn() {
     </>
   );
 }
+
+ShareBtn.propTypes = {
+  inProgress: PropTypes.bool,
+}.isRequired;

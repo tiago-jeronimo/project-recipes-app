@@ -18,7 +18,7 @@ export default function RecipeDetailsDrinks() {
     const NUM = { START: 0, END: 6 };
 
     const getMeals = async () => {
-      const data = await API('MEALS', 'search');
+      const data = await API('MEALS', 'all');
       setMeals(data.slice(NUM.START, NUM.END));
     };
     getMeals();
@@ -58,14 +58,16 @@ export default function RecipeDetailsDrinks() {
       </div>
       <h3 data-testid="recipe-category">{strAlcoholic}</h3>
       <h2>Ingredients</h2>
-      {getIngredients().map((ing, i) => (
-        <p
-          key={ ing }
-          data-testid={ `${i}-ingredient-name-and-measure` }
-        >
-          {`- ${ing} ${(getMeasure()[i]) ? `- ${getMeasure()[i]}` : ''} `}
-        </p>
-      ))}
+      <div>
+        {getIngredients().map((ing, i) => (
+          <p
+            key={ ing }
+            data-testid={ `${i}-ingredient-name-and-measure` }
+          >
+            {`- ${ing} ${(getMeasure()[i]) ? `- ${getMeasure()[i]}` : ''} `}
+          </p>
+        ))}
+      </div>
       <h2>Instructions</h2>
       <p data-testid="instructions">{strInstructions}</p>
       <h2>Recommended</h2>
