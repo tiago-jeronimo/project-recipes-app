@@ -22,7 +22,7 @@
   margin: 0 8px;
 }
 
-.wrapper img {
+.wrapper input {
   margin: 0 4px;
   width: fit-content;
 }
@@ -55,4 +55,19 @@
   font-size: 1.5rem;
   position: fixed;
   width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 90%;
+}
+
+input:checked + span {
+  text-decoration: line-through;
+}
+
+.column input {
+  margin-right: 8px;
 }
