@@ -12,10 +12,14 @@ export default function FavoriteCard(
     type,
     alcoholicOrNot, name, image, index, clickFavoriteButton },
 ) {
+  const { origin } = window.location;
+  const pathname = `/${type}s/${id}`;
+  const url = `${origin}${pathname}`;
+
   return (
     <div>
       <div>
-        <Link to={ `/${type}s/${id}` }>
+        <Link to={ pathname }>
           <img
             src={ image }
             alt={ name }
@@ -34,7 +38,10 @@ export default function FavoriteCard(
           </Link>
         </div>
         <div>
-          <ShareButton testid={ `${index}-horizontal-share-btn` } />
+          <ShareButton
+            testid={ `${index}-horizontal-share-btn` }
+            url={ url }
+          />
           <button
             type="button"
             label={ blackHeartIcon }

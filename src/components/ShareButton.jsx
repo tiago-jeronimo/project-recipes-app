@@ -4,20 +4,18 @@ import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
-export default function ShareButton({ testid }) {
+export default function ShareButton({ testid, url }) {
   const [showMSG, setShowMSG] = useState(false);
 
   useEffect(() => {
     if (showMSG === true) {
       setTimeout(() => {
         setShowMSG(false);
-      }, '1000');
+      }, '2000');
     }
   }, [showMSG]);
 
   const handleShare = () => {
-    const url = window.location.href;
-    console.log(url);
     copy(url);
     setShowMSG(true);
   };
@@ -40,4 +38,5 @@ export default function ShareButton({ testid }) {
 
 ShareButton.propTypes = {
   testid: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };
