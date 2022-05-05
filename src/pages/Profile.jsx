@@ -6,7 +6,8 @@ import Footer from '../components/Footer';
 
 export default function Profile() {
   const history = useHistory();
-  const userEmail = JSON.parse(localStorage.getItem('user'));
+  const item = JSON.parse(localStorage.getItem('user'));
+  const userEmail = (item) || '';
   return (
     <>
       <Header title="Profile" visibleSearch={ false } />
