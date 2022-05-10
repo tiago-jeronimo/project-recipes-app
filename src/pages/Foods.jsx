@@ -1,23 +1,29 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Footer from '../components/Footer';
 import MealCard from '../components/MealCard';
 import Category from '../components/Category';
 import { getFoods, getCategoriesMeal, getMealByCategory } from '../services/mealDBAPI';
 import Header from '../components/Header';
-import MyContext from '../context/Context';
 import API from '../services/API';
+import myContext from '../context/Context';
 
 export default function Foods() {
-  const [meals, setMeals] = useState([]);
-  const { search } = useContext(MyContext);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState('All');
-  const history = useHistory();
+  const { recipes, setRecipes } = useContext(myContext);
+  const { argParams } = useParams();
+  const TYPE = 'MEALS';
+
+  const init = async () => {
+    const result = (argParams) ? await API('MEALS', 'byIngredient', argParams)
+      : await getFoods();
+    setRecipes({ [TYPE]: result });
+  };
 
   const getMeals = async () => {
     const result = await getFoods();
-    setMeals(result);
+    setRecipes({ [TYPE]: result });
   };
 
   const getCategories = async () => {
@@ -30,7 +36,7 @@ export default function Foods() {
     const result = cat !== 'All'
       ? await getMealByCategory(cat)
       : await getFoods();
-    setMeals(result);
+    setRecipes({ [TYPE]: result });
   };
 
   const clickCategory = (newCategory) => {
@@ -41,30 +47,12 @@ export default function Foods() {
     }
   };
 
-  const searchBy = async () => {
-    if (search.search !== '') {
-      const result = await API('MEALS', search.type, search.search);
-      if (!result) {
-        global.alert('Sorry, we haven\'t found any recipes for these filters.');
-      } else if (result.length === 1) {
-        setMeals(result);
-        history.push(`/foods/${result[0].idMeal}`);
-      } else {
-        setMeals(result);
-      }
-    }
-  };
-
-  useEffect(() => {
-    searchBy();
-  }, [search.search]);
-
   useEffect(() => {
     filterByCategory(category);
   }, [category]);
 
   useEffect(() => {
-    getMeals();
+    init();
     getCategories();
   }, []);
 
@@ -95,12 +83,11 @@ export default function Foods() {
     }
     return (<p>Nada encontrado.</p>);
   };
-
   return (
     <>
       <Header title="Foods" visibleSearch />
       { renderLengthValidationCategories(categories) }
-      { renderLengthValidationMeals(meals) }
+      { renderLengthValidationMeals(recipes[TYPE]) }
       <Footer />
     </>
   );

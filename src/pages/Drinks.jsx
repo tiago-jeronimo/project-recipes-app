@@ -1,24 +1,31 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Category from '../components/Category';
 import { getDrinksAPI, getCategoriesDrinks,
   getDrinkByCategory } from '../services/drinksAPI';
 import Header from '../components/Header';
 import DrinkCard from '../components/DrinkCard';
-import MyContext from '../context/Context';
+import myContext from '../context/Context';
 import API from '../services/API';
 
 export default function Drinks() {
-  const { search } = useContext(MyContext);
-  const [drinks, setDrinks] = useState([]);
+  const { recipes, setRecipes } = useContext(myContext);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState('All');
-  const history = useHistory();
+  const { argParams } = useParams();
+  const TYPE = 'DRINKS';
+
+  const init = async () => {
+    console.log(argParams);
+    const result = (argParams) ? await API('DRINKS', 'byIngredient', argParams)
+      : await getDrinksAPI();
+    setRecipes({ [TYPE]: result });
+  };
 
   const getDrinks = async () => {
     const result = await getDrinksAPI();
-    setDrinks(result);
+    setRecipes({ [TYPE]: result });
   };
 
   const getCategories = async () => {
@@ -30,21 +37,7 @@ export default function Drinks() {
   const filterByCategory = async (categoryName) => {
     const result = categoryName !== 'All'
       ? await getDrinkByCategory(categoryName) : await getDrinksAPI();
-    setDrinks(result);
-  };
-
-  const searchBy = async () => {
-    if (search.search !== '') {
-      const result = await API('DRINKS', search.type, search.search);
-      if (!result) {
-        global.alert('Sorry, we haven\'t found any recipes for these filters.');
-      } else if (result.length === 1) {
-        setDrinks(result);
-        history.push(`/drinks/${result[0].idDrink}`);
-      } else {
-        setDrinks(result);
-      }
-    }
+    setRecipes({ [TYPE]: result });
   };
 
   const clickCategory = (newCategory) => {
@@ -56,15 +49,11 @@ export default function Drinks() {
   };
 
   useEffect(() => {
-    searchBy();
-  }, [search.search]);
-
-  useEffect(() => {
     filterByCategory(category);
   }, [category]);
 
   useEffect(() => {
-    getDrinks();
+    init();
     getCategories();
   }, []);
 
@@ -100,7 +89,7 @@ export default function Drinks() {
     <div>
       <Header title="Drinks" visibleSearch />
       { renderLengthValidationCategories(categories) }
-      { renderLengthValidationDrinks(drinks) }
+      { renderLengthValidationDrinks(recipes[TYPE]) }
       <Footer />
     </div>
   );

@@ -40,7 +40,6 @@ export default function Header({ title, visibleSearch }) {
 
     </div>);
 }
-
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   visibleSearch: PropTypes.bool.isRequired,

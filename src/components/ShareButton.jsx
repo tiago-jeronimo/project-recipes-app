@@ -4,23 +4,19 @@ import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
-export default function ShareBtn({ inProgress }) {
+export default function ShareButton({ testid, url }) {
   const [showMSG, setShowMSG] = useState(false);
 
   useEffect(() => {
     if (showMSG === true) {
       setTimeout(() => {
         setShowMSG(false);
-      }, '1000');
+      }, '2000');
     }
   }, [showMSG]);
 
   const handleShare = () => {
-    const url = window.location.href;
-    const reg = /.*(?=\/in)/;
-
-    copy((inProgress) ? url.match(reg)[0] : copy(url));
-
+    copy(url);
     setShowMSG(true);
   };
 
@@ -31,7 +27,7 @@ export default function ShareBtn({ inProgress }) {
         src={ shareIcon }
         alt="Share Button"
         onClick={ handleShare }
-        data-testid="share-btn"
+        data-testid={ testid }
       />
       {showMSG && (
         <p>Link copied!</p>
@@ -40,6 +36,7 @@ export default function ShareBtn({ inProgress }) {
   );
 }
 
-ShareBtn.propTypes = {
-  inProgress: PropTypes.bool,
-}.isRequired;
+ShareButton.propTypes = {
+  testid: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+};
