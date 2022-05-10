@@ -30,7 +30,9 @@ a {
   align-items: center;
   background-color: white;
   display: flex;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-right: 10px;
   padding: 10px;
   text-align: center;
 }
@@ -38,9 +40,9 @@ a {
 .btnFood button {
   background-color: #ff9700;
   border-radius: 5px;
-  height: 25px;
+  height: 30px;
   padding: 5px;
-  width: 80px;
+  width: 110px;
 }
 
 .btnFood button:hover {
