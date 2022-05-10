@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import './DrinkCard.css';
 
 export default function DrinkCard({ drink, index }) {
   return (

@@ -88,8 +88,12 @@ export default function Drinks() {
   return (
     <div>
       <Header title="Drinks" visibleSearch />
-      { renderLengthValidationCategories(categories) }
-      { renderLengthValidationDrinks(recipes[TYPE]) }
+      <div className="btnDrink">
+        { renderLengthValidationCategories(categories) }
+      </div>
+      <div className="drinkPage">
+        { renderLengthValidationDrinks(recipes[TYPE]) }
+      </div>
       <Footer />
     </div>
   );
