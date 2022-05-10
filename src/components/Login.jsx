@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import './Login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -25,7 +26,7 @@ function Login() {
   };
 
   return (
-    <form>
+    <form className="formulario">
       <label htmlFor="email">
         E-mail
         <input
@@ -54,6 +55,7 @@ function Login() {
 
       <button
         data-testid="login-submit-btn"
+        className="btnLogin"
         type="submit"
         disabled={ !buttonValidate() }
         onClick={ () => {
